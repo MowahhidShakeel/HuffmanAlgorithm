@@ -1,0 +1,540 @@
+==8326== Helgrind, a thread error detector
+==8326== Copyright (C) 2007-2017, and GNU GPL'd, by OpenWorks LLP et al.
+==8326== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==8326== Command: ./zip text 5 output
+==8326== Parent PID: 1982
+==8326== 
+==8326== ---Thread-Announcement------------------------------------------
+==8326== 
+==8326== Thread #2 was created
+==8326==    at 0x4A7EBA3: clone (clone.S:76)
+==8326==    by 0x4A7FA9E: __clone_internal (clone-internal.c:83)
+==8326==    by 0x49ED758: create_thread (pthread_create.c:295)
+==8326==    by 0x49EE27F: pthread_create@@GLIBC_2.34 (pthread_create.c:828)
+==8326==    by 0x4853767: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x109EFE: main (zip.c:249)
+==8326== 
+==8326== ---Thread-Announcement------------------------------------------
+==8326== 
+==8326== Thread #1 is the program's root thread
+==8326== 
+==8326== ----------------------------------------------------------------
+==8326== 
+==8326== Thread #2 unlocked lock at 0x4B84A58 currently held by thread #1
+==8326==    at 0x48511E6: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x10988C: readFreq (zip.c:144)
+==8326==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x49EDB42: start_thread (pthread_create.c:442)
+==8326==    by 0x4A7EBB3: clone (clone.S:100)
+==8326==  Lock at 0x4B84A58 was first observed
+==8326==    at 0x4854BFE: pthread_mutex_init (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x109D34: main (zip.c:229)
+==8326==  Address 0x4b84a58 is 40 bytes inside a block of size 200 alloc'd
+==8326==    at 0x484A919: malloc (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x109C8B: main (zip.c:219)
+==8326==  Block was alloc'd by thread #1
+==8326== 
+==8326== 
+==8326== ----------------------------------------------------------------
+==8326== 
+==8326== Thread #2: Exiting thread still holds 1 lock
+==8326==    at 0x49EDAE6: start_thread (pthread_create.c:593)
+==8326==    by 0x4A7EBB3: clone (clone.S:100)
+==8326== 
+==8326== ---Thread-Announcement------------------------------------------
+==8326== 
+==8326== Thread #3 was created
+==8326==    at 0x4A7EBA3: clone (clone.S:76)
+==8326==    by 0x4A7FA9E: __clone_internal (clone-internal.c:83)
+==8326==    by 0x49ED758: create_thread (pthread_create.c:295)
+==8326==    by 0x49EE27F: pthread_create@@GLIBC_2.34 (pthread_create.c:828)
+==8326==    by 0x4853767: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x109EFE: main (zip.c:249)
+==8326== 
+==8326== ----------------------------------------------------------------
+==8326== 
+==8326== Thread #3: Bug in libpthread: write lock granted on mutex/rwlock which is currently wr-held by a different thread
+==8326==    at 0x4850CCF: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x1097B8: readFreq (zip.c:126)
+==8326==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x49EDB42: start_thread (pthread_create.c:442)
+==8326==    by 0x4A7EBB3: clone (clone.S:100)
+==8326== 
+==8326== ----------------------------------------------------------------
+==8326== 
+==8326==  Lock at 0x4B84A30 was first observed
+==8326==    at 0x4854BFE: pthread_mutex_init (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x109D34: main (zip.c:229)
+==8326==  Address 0x4b84a30 is 0 bytes inside a block of size 200 alloc'd
+==8326==    at 0x484A919: malloc (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x109C8B: main (zip.c:219)
+==8326==  Block was alloc'd by thread #1
+==8326== 
+==8326== Possible data race during write of size 1 at 0x10D030 by thread #3
+==8326== Locks held: none
+==8326==    at 0x1097D3: readFreq (zip.c:130)
+==8326==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x49EDB42: start_thread (pthread_create.c:442)
+==8326==    by 0x4A7EBB3: clone (clone.S:100)
+==8326== 
+==8326== This conflicts with a previous write of size 1 by thread #2
+==8326== Locks held: 1, at address 0x4B84A30
+==8326==    at 0x1097D3: readFreq (zip.c:130)
+==8326==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x49EDB42: start_thread (pthread_create.c:442)
+==8326==    by 0x4A7EBB3: clone (clone.S:100)
+==8326==  Address 0x10d030 is 0 bytes inside data symbol "c"
+==8326== 
+==8326== ----------------------------------------------------------------
+==8326== 
+==8326==  Lock at 0x4B84A30 was first observed
+==8326==    at 0x4854BFE: pthread_mutex_init (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x109D34: main (zip.c:229)
+==8326==  Address 0x4b84a30 is 0 bytes inside a block of size 200 alloc'd
+==8326==    at 0x484A919: malloc (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x109C8B: main (zip.c:219)
+==8326==  Block was alloc'd by thread #1
+==8326== 
+==8326== Possible data race during read of size 4 at 0x4B83208 by thread #3
+==8326== Locks held: none
+==8326==    at 0x109803: readFreq (zip.c:136)
+==8326==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x49EDB42: start_thread (pthread_create.c:442)
+==8326==    by 0x4A7EBB3: clone (clone.S:100)
+==8326== 
+==8326== This conflicts with a previous write of size 4 by thread #2
+==8326== Locks held: 1, at address 0x4B84A30
+==8326==    at 0x109836: readFreq (zip.c:140)
+==8326==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x49EDB42: start_thread (pthread_create.c:442)
+==8326==    by 0x4A7EBB3: clone (clone.S:100)
+==8326==  Address 0x4b83208 is 456 bytes inside a block of size 512 alloc'd
+==8326==    at 0x484A919: malloc (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x109AC3: main (zip.c:191)
+==8326==  Block was alloc'd by thread #1
+==8326== 
+==8326== ----------------------------------------------------------------
+==8326== 
+==8326==  Lock at 0x4B84A30 was first observed
+==8326==    at 0x4854BFE: pthread_mutex_init (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x109D34: main (zip.c:229)
+==8326==  Address 0x4b84a30 is 0 bytes inside a block of size 200 alloc'd
+==8326==    at 0x484A919: malloc (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x109C8B: main (zip.c:219)
+==8326==  Block was alloc'd by thread #1
+==8326== 
+==8326== Possible data race during write of size 4 at 0x4B83208 by thread #3
+==8326== Locks held: none
+==8326==    at 0x109836: readFreq (zip.c:140)
+==8326==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x49EDB42: start_thread (pthread_create.c:442)
+==8326==    by 0x4A7EBB3: clone (clone.S:100)
+==8326== 
+==8326== This conflicts with a previous write of size 4 by thread #2
+==8326== Locks held: 1, at address 0x4B84A30
+==8326==    at 0x109836: readFreq (zip.c:140)
+==8326==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x49EDB42: start_thread (pthread_create.c:442)
+==8326==    by 0x4A7EBB3: clone (clone.S:100)
+==8326==  Address 0x4b83208 is 456 bytes inside a block of size 512 alloc'd
+==8326==    at 0x484A919: malloc (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x109AC3: main (zip.c:191)
+==8326==  Block was alloc'd by thread #1
+==8326== 
+==8326== ----------------------------------------------------------------
+==8326== 
+==8326==  Lock at 0x4B84A30 was first observed
+==8326==    at 0x4854BFE: pthread_mutex_init (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x109D34: main (zip.c:229)
+==8326==  Address 0x4b84a30 is 0 bytes inside a block of size 200 alloc'd
+==8326==    at 0x484A919: malloc (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x109C8B: main (zip.c:219)
+==8326==  Block was alloc'd by thread #1
+==8326== 
+==8326== Possible data race during read of size 4 at 0x10D040 by thread #3
+==8326== Locks held: none
+==8326==    at 0x109809: readFreq (zip.c:138)
+==8326==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x49EDB42: start_thread (pthread_create.c:442)
+==8326==    by 0x4A7EBB3: clone (clone.S:100)
+==8326== 
+==8326== This conflicts with a previous write of size 4 by thread #2
+==8326== Locks held: 1, at address 0x4B84A30
+==8326==    at 0x109812: readFreq (zip.c:138)
+==8326==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x49EDB42: start_thread (pthread_create.c:442)
+==8326==    by 0x4A7EBB3: clone (clone.S:100)
+==8326==  Address 0x10d040 is 0 bytes inside data symbol "count"
+==8326== 
+==8326== ----------------------------------------------------------------
+==8326== 
+==8326==  Lock at 0x4B84A30 was first observed
+==8326==    at 0x4854BFE: pthread_mutex_init (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x109D34: main (zip.c:229)
+==8326==  Address 0x4b84a30 is 0 bytes inside a block of size 200 alloc'd
+==8326==    at 0x484A919: malloc (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x109C8B: main (zip.c:219)
+==8326==  Block was alloc'd by thread #1
+==8326== 
+==8326== Possible data race during write of size 4 at 0x10D040 by thread #3
+==8326== Locks held: none
+==8326==    at 0x109812: readFreq (zip.c:138)
+==8326==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x49EDB42: start_thread (pthread_create.c:442)
+==8326==    by 0x4A7EBB3: clone (clone.S:100)
+==8326== 
+==8326== This conflicts with a previous write of size 4 by thread #2
+==8326== Locks held: 1, at address 0x4B84A30
+==8326==    at 0x109812: readFreq (zip.c:138)
+==8326==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x49EDB42: start_thread (pthread_create.c:442)
+==8326==    by 0x4A7EBB3: clone (clone.S:100)
+==8326==  Address 0x10d040 is 0 bytes inside data symbol "count"
+==8326== 
+==8326== ----------------------------------------------------------------
+==8326== 
+==8326== Thread #3 unlocked lock at 0x4B84A80 currently held by thread #1
+==8326==    at 0x48511E6: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x10988C: readFreq (zip.c:144)
+==8326==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x49EDB42: start_thread (pthread_create.c:442)
+==8326==    by 0x4A7EBB3: clone (clone.S:100)
+==8326==  Lock at 0x4B84A80 was first observed
+==8326==    at 0x4854BFE: pthread_mutex_init (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x109D34: main (zip.c:229)
+==8326==  Address 0x4b84a80 is 80 bytes inside a block of size 200 alloc'd
+==8326==    at 0x484A919: malloc (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x109C8B: main (zip.c:219)
+==8326==  Block was alloc'd by thread #1
+==8326== 
+==8326== 
+==8326== ---Thread-Announcement------------------------------------------
+==8326== 
+==8326== Thread #4 was created
+==8326==    at 0x4A7EBA3: clone (clone.S:76)
+==8326==    by 0x4A7FA9E: __clone_internal (clone-internal.c:83)
+==8326==    by 0x49ED758: create_thread (pthread_create.c:295)
+==8326==    by 0x49EE27F: pthread_create@@GLIBC_2.34 (pthread_create.c:828)
+==8326==    by 0x4853767: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x109EFE: main (zip.c:249)
+==8326== 
+==8326== ----------------------------------------------------------------
+==8326== 
+==8326== Thread #4: Bug in libpthread: write lock granted on mutex/rwlock which is currently wr-held by a different thread
+==8326==    at 0x4850CCF: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x1097B8: readFreq (zip.c:126)
+==8326==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x49EDB42: start_thread (pthread_create.c:442)
+==8326==    by 0x4A7EBB3: clone (clone.S:100)
+==8326== 
+==8326== ----------------------------------------------------------------
+==8326== 
+==8326== Thread #4 unlocked lock at 0x4B84AA8 currently held by thread #1
+==8326==    at 0x48511E6: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x10988C: readFreq (zip.c:144)
+==8326==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x49EDB42: start_thread (pthread_create.c:442)
+==8326==    by 0x4A7EBB3: clone (clone.S:100)
+==8326==  Lock at 0x4B84AA8 was first observed
+==8326==    at 0x4854BFE: pthread_mutex_init (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x109D34: main (zip.c:229)
+==8326==  Address 0x4b84aa8 is 120 bytes inside a block of size 200 alloc'd
+==8326==    at 0x484A919: malloc (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x109C8B: main (zip.c:219)
+==8326==  Block was alloc'd by thread #1
+==8326== 
+==8326== 
+==8326== ---Thread-Announcement------------------------------------------
+==8326== 
+==8326== Thread #5 was created
+==8326==    at 0x4A7EBA3: clone (clone.S:76)
+==8326==    by 0x4A7FA9E: __clone_internal (clone-internal.c:83)
+==8326==    by 0x49ED758: create_thread (pthread_create.c:295)
+==8326==    by 0x49EE27F: pthread_create@@GLIBC_2.34 (pthread_create.c:828)
+==8326==    by 0x4853767: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x109EFE: main (zip.c:249)
+==8326== 
+==8326== ----------------------------------------------------------------
+==8326== 
+==8326== Thread #5: Bug in libpthread: write lock granted on mutex/rwlock which is currently wr-held by a different thread
+==8326==    at 0x4850CCF: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x1097B8: readFreq (zip.c:126)
+==8326==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x49EDB42: start_thread (pthread_create.c:442)
+==8326==    by 0x4A7EBB3: clone (clone.S:100)
+==8326== 
+==8326== ----------------------------------------------------------------
+==8326== 
+==8326== Thread #5 unlocked lock at 0x4B84AD0 currently held by thread #1
+==8326==    at 0x48511E6: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x10988C: readFreq (zip.c:144)
+==8326==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x49EDB42: start_thread (pthread_create.c:442)
+==8326==    by 0x4A7EBB3: clone (clone.S:100)
+==8326==  Lock at 0x4B84AD0 was first observed
+==8326==    at 0x4854BFE: pthread_mutex_init (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x109D34: main (zip.c:229)
+==8326==  Address 0x4b84ad0 is 160 bytes inside a block of size 200 alloc'd
+==8326==    at 0x484A919: malloc (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x109C8B: main (zip.c:219)
+==8326==  Block was alloc'd by thread #1
+==8326== 
+==8326== 
+==8326== ---Thread-Announcement------------------------------------------
+==8326== 
+==8326== Thread #6 was created
+==8326==    at 0x4A7EBA3: clone (clone.S:76)
+==8326==    by 0x4A7FA9E: __clone_internal (clone-internal.c:83)
+==8326==    by 0x49ED758: create_thread (pthread_create.c:295)
+==8326==    by 0x49EE27F: pthread_create@@GLIBC_2.34 (pthread_create.c:828)
+==8326==    by 0x4853767: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x109EFE: main (zip.c:249)
+==8326== 
+==8326== ----------------------------------------------------------------
+==8326== 
+==8326== Thread #6: Bug in libpthread: write lock granted on mutex/rwlock which is currently wr-held by a different thread
+==8326==    at 0x4850CCF: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x1097B8: readFreq (zip.c:126)
+==8326==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x49EDB42: start_thread (pthread_create.c:442)
+==8326==    by 0x4A7EBB3: clone (clone.S:100)
+==8326== 
+==8326== ---Thread-Announcement------------------------------------------
+==8326== 
+==8326== Thread #7 was created
+==8326==    at 0x4A7EBA3: clone (clone.S:76)
+==8326==    by 0x4A7FA9E: __clone_internal (clone-internal.c:83)
+==8326==    by 0x49ED758: create_thread (pthread_create.c:295)
+==8326==    by 0x49EE27F: pthread_create@@GLIBC_2.34 (pthread_create.c:828)
+==8326==    by 0x4853767: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x10A588: main (zip.c:334)
+==8326== 
+==8326== ----------------------------------------------------------------
+==8326== 
+==8326== Thread #7 unlocked lock at 0x4B84B68 currently held by thread #1
+==8326==    at 0x48511E6: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x109A1B: buildTree (zip.c:171)
+==8326==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x49EDB42: start_thread (pthread_create.c:442)
+==8326==    by 0x4A7EBB3: clone (clone.S:100)
+==8326==  Lock at 0x4B84B68 was first observed
+==8326==    at 0x4854BFE: pthread_mutex_init (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x10A4BE: main (zip.c:326)
+==8326==  Address 0x4b84b68 is 40 bytes inside a block of size 200 alloc'd
+==8326==    at 0x484A919: malloc (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x109CB1: main (zip.c:220)
+==8326==  Block was alloc'd by thread #1
+==8326== 
+==8326== 
+==8326== ----------------------------------------------------------------
+==8326== 
+==8326== Thread #7: Exiting thread still holds 1 lock
+==8326==    at 0x49EDAE6: start_thread (pthread_create.c:593)
+==8326==    by 0x4A7EBB3: clone (clone.S:100)
+==8326== 
+==8326== ---Thread-Announcement------------------------------------------
+==8326== 
+==8326== Thread #8 was created
+==8326==    at 0x4A7EBA3: clone (clone.S:76)
+==8326==    by 0x4A7FA9E: __clone_internal (clone-internal.c:83)
+==8326==    by 0x49ED758: create_thread (pthread_create.c:295)
+==8326==    by 0x49EE27F: pthread_create@@GLIBC_2.34 (pthread_create.c:828)
+==8326==    by 0x4853767: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x10A588: main (zip.c:334)
+==8326== 
+==8326== ----------------------------------------------------------------
+==8326== 
+==8326== Thread #8: Bug in libpthread: write lock granted on mutex/rwlock which is currently wr-held by a different thread
+==8326==    at 0x4850CCF: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x1098D1: buildTree (zip.c:151)
+==8326==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x49EDB42: start_thread (pthread_create.c:442)
+==8326==    by 0x4A7EBB3: clone (clone.S:100)
+==8326== 
+==8326== ----------------------------------------------------------------
+==8326== 
+==8326==  Lock at 0x4B84B40 was first observed
+==8326==    at 0x4854BFE: pthread_mutex_init (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x10A4BE: main (zip.c:326)
+==8326==  Address 0x4b84b40 is 0 bytes inside a block of size 200 alloc'd
+==8326==    at 0x484A919: malloc (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x109CB1: main (zip.c:220)
+==8326==  Block was alloc'd by thread #1
+==8326== 
+==8326== Possible data race during read of size 8 at 0x10D078 by thread #8
+==8326== Locks held: none
+==8326==    at 0x1098EE: buildTree (zip.c:156)
+==8326==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x49EDB42: start_thread (pthread_create.c:442)
+==8326==    by 0x4A7EBB3: clone (clone.S:100)
+==8326== 
+==8326== This conflicts with a previous write of size 8 by thread #7
+==8326== Locks held: 1, at address 0x4B84B40
+==8326==    at 0x1099C0: buildTree (zip.c:168)
+==8326==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x49EDB42: start_thread (pthread_create.c:442)
+==8326==    by 0x4A7EBB3: clone (clone.S:100)
+==8326==  Address 0x10d078 is 0 bytes inside data symbol "ptr"
+==8326== 
+==8326== ----------------------------------------------------------------
+==8326== 
+==8326== Possible data race during read of size 4 at 0x4B8BBA4 by thread #8
+==8326== Locks held: none
+==8326==    at 0x1098F5: buildTree (zip.c:156)
+==8326==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x49EDB42: start_thread (pthread_create.c:442)
+==8326==    by 0x4A7EBB3: clone (clone.S:100)
+==8326==  Address 0x4b8bba4 is 4 bytes inside a block of size 544 alloc'd
+==8326==    at 0x484A919: malloc (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x1098E9: buildTree (zip.c:155)
+==8326==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x49EDB42: start_thread (pthread_create.c:442)
+==8326==    by 0x4A7EBB3: clone (clone.S:100)
+==8326==  Block was alloc'd by thread #7
+==8326== 
+==8326== ----------------------------------------------------------------
+==8326== 
+==8326==  Lock at 0x4B84B40 was first observed
+==8326==    at 0x4854BFE: pthread_mutex_init (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x10A4BE: main (zip.c:326)
+==8326==  Address 0x4b84b40 is 0 bytes inside a block of size 200 alloc'd
+==8326==    at 0x484A919: malloc (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x109CB1: main (zip.c:220)
+==8326==  Block was alloc'd by thread #1
+==8326== 
+==8326== Possible data race during write of size 8 at 0x10D078 by thread #8
+==8326== Locks held: none
+==8326==    at 0x1099C0: buildTree (zip.c:168)
+==8326==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x49EDB42: start_thread (pthread_create.c:442)
+==8326==    by 0x4A7EBB3: clone (clone.S:100)
+==8326== 
+==8326== This conflicts with a previous write of size 8 by thread #7
+==8326== Locks held: 1, at address 0x4B84B40
+==8326==    at 0x1099C0: buildTree (zip.c:168)
+==8326==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x49EDB42: start_thread (pthread_create.c:442)
+==8326==    by 0x4A7EBB3: clone (clone.S:100)
+==8326==  Address 0x10d078 is 0 bytes inside data symbol "ptr"
+==8326== 
+==8326== ----------------------------------------------------------------
+==8326== 
+==8326== Thread #8 unlocked lock at 0x4B84B90 currently held by thread #1
+==8326==    at 0x48511E6: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x109A1B: buildTree (zip.c:171)
+==8326==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x49EDB42: start_thread (pthread_create.c:442)
+==8326==    by 0x4A7EBB3: clone (clone.S:100)
+==8326==  Lock at 0x4B84B90 was first observed
+==8326==    at 0x4854BFE: pthread_mutex_init (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x10A4BE: main (zip.c:326)
+==8326==  Address 0x4b84b90 is 80 bytes inside a block of size 200 alloc'd
+==8326==    at 0x484A919: malloc (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x109CB1: main (zip.c:220)
+==8326==  Block was alloc'd by thread #1
+==8326== 
+==8326== 
+==8326== ---Thread-Announcement------------------------------------------
+==8326== 
+==8326== Thread #9 was created
+==8326==    at 0x4A7EBA3: clone (clone.S:76)
+==8326==    by 0x4A7FA9E: __clone_internal (clone-internal.c:83)
+==8326==    by 0x49ED758: create_thread (pthread_create.c:295)
+==8326==    by 0x49EE27F: pthread_create@@GLIBC_2.34 (pthread_create.c:828)
+==8326==    by 0x4853767: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x10A588: main (zip.c:334)
+==8326== 
+==8326== ----------------------------------------------------------------
+==8326== 
+==8326== Thread #9: Bug in libpthread: write lock granted on mutex/rwlock which is currently wr-held by a different thread
+==8326==    at 0x4850CCF: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x1098D1: buildTree (zip.c:151)
+==8326==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x49EDB42: start_thread (pthread_create.c:442)
+==8326==    by 0x4A7EBB3: clone (clone.S:100)
+==8326== 
+==8326== ----------------------------------------------------------------
+==8326== 
+==8326== Thread #9 unlocked lock at 0x4B84BB8 currently held by thread #1
+==8326==    at 0x48511E6: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x109A1B: buildTree (zip.c:171)
+==8326==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x49EDB42: start_thread (pthread_create.c:442)
+==8326==    by 0x4A7EBB3: clone (clone.S:100)
+==8326==  Lock at 0x4B84BB8 was first observed
+==8326==    at 0x4854BFE: pthread_mutex_init (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x10A4BE: main (zip.c:326)
+==8326==  Address 0x4b84bb8 is 120 bytes inside a block of size 200 alloc'd
+==8326==    at 0x484A919: malloc (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x109CB1: main (zip.c:220)
+==8326==  Block was alloc'd by thread #1
+==8326== 
+==8326== 
+==8326== ---Thread-Announcement------------------------------------------
+==8326== 
+==8326== Thread #10 was created
+==8326==    at 0x4A7EBA3: clone (clone.S:76)
+==8326==    by 0x4A7FA9E: __clone_internal (clone-internal.c:83)
+==8326==    by 0x49ED758: create_thread (pthread_create.c:295)
+==8326==    by 0x49EE27F: pthread_create@@GLIBC_2.34 (pthread_create.c:828)
+==8326==    by 0x4853767: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x10A588: main (zip.c:334)
+==8326== 
+==8326== ----------------------------------------------------------------
+==8326== 
+==8326== Thread #10: Bug in libpthread: write lock granted on mutex/rwlock which is currently wr-held by a different thread
+==8326==    at 0x4850CCF: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x1098D1: buildTree (zip.c:151)
+==8326==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x49EDB42: start_thread (pthread_create.c:442)
+==8326==    by 0x4A7EBB3: clone (clone.S:100)
+==8326== 
+==8326== ----------------------------------------------------------------
+==8326== 
+==8326== Thread #10 unlocked lock at 0x4B84BE0 currently held by thread #1
+==8326==    at 0x48511E6: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x109A1B: buildTree (zip.c:171)
+==8326==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x49EDB42: start_thread (pthread_create.c:442)
+==8326==    by 0x4A7EBB3: clone (clone.S:100)
+==8326==  Lock at 0x4B84BE0 was first observed
+==8326==    at 0x4854BFE: pthread_mutex_init (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x10A4BE: main (zip.c:326)
+==8326==  Address 0x4b84be0 is 160 bytes inside a block of size 200 alloc'd
+==8326==    at 0x484A919: malloc (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x109CB1: main (zip.c:220)
+==8326==  Block was alloc'd by thread #1
+==8326== 
+==8326== 
+==8326== ---Thread-Announcement------------------------------------------
+==8326== 
+==8326== Thread #11 was created
+==8326==    at 0x4A7EBA3: clone (clone.S:76)
+==8326==    by 0x4A7FA9E: __clone_internal (clone-internal.c:83)
+==8326==    by 0x49ED758: create_thread (pthread_create.c:295)
+==8326==    by 0x49EE27F: pthread_create@@GLIBC_2.34 (pthread_create.c:828)
+==8326==    by 0x4853767: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x10A588: main (zip.c:334)
+==8326== 
+==8326== ----------------------------------------------------------------
+==8326== 
+==8326== Thread #11: Bug in libpthread: write lock granted on mutex/rwlock which is currently wr-held by a different thread
+==8326==    at 0x4850CCF: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x1098D1: buildTree (zip.c:151)
+==8326==    by 0x485396A: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==8326==    by 0x49EDB42: start_thread (pthread_create.c:442)
+==8326==    by 0x4A7EBB3: clone (clone.S:100)
+==8326== 
+==8326== ----------------------------------------------------------------
+==8326== 
+==8326== Thread #1: Exiting thread still holds 8 locks
+==8326==    at 0x4A43CA1: _Exit (_exit.c:30)
+==8326==    by 0x499E551: __run_exit_handlers (exit.c:136)
+==8326==    by 0x499E60F: exit (exit.c:143)
+==8326==    by 0x10A78E: main (zip.c:379)
+==8326== 
+==8326== 
+==8326== Use --history-level=approx or =none to gain increased speed, at
+==8326== the cost of reduced accuracy of conflicting-access information
+==8326== For lists of detected and suppressed errors, rerun with: -s
+==8326== ERROR SUMMARY: 237 errors from 27 contexts (suppressed: 56 from 14)

@@ -1,0 +1,38 @@
+==8351== Memcheck, a memory error detector
+==8351== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==8351== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==8351== Command: ./unzip output 3 decoded
+==8351== Parent PID: 1982
+==8351== 
+==8351== Conditional jump or move depends on uninitialised value(s)
+==8351==    at 0x1098CD: main (unzip.c:119)
+==8351== 
+==8351== Conditional jump or move depends on uninitialised value(s)
+==8351==    at 0x10990D: main (unzip.c:147)
+==8351== 
+==8351== Thread 2:
+==8351== Conditional jump or move depends on uninitialised value(s)
+==8351==    at 0x1094F1: decode (unzip.c:43)
+==8351==    by 0x49E6B42: start_thread (pthread_create.c:442)
+==8351==    by 0x4A77BB3: clone (clone.S:100)
+==8351== 
+==8351== Conditional jump or move depends on uninitialised value(s)
+==8351==    at 0x10951B: decode (unzip.c:47)
+==8351==    by 0x49E6B42: start_thread (pthread_create.c:442)
+==8351==    by 0x4A77BB3: clone (clone.S:100)
+==8351== 
+==8351== Conditional jump or move depends on uninitialised value(s)
+==8351==    at 0x109560: decode (unzip.c:52)
+==8351==    by 0x49E6B42: start_thread (pthread_create.c:442)
+==8351==    by 0x4A77BB3: clone (clone.S:100)
+==8351== 
+==8351== 
+==8351== HEAP SUMMARY:
+==8351==     in use at exit: 0 bytes in 0 blocks
+==8351==   total heap usage: 16 allocs, 16 frees, 82,284 bytes allocated
+==8351== 
+==8351== All heap blocks were freed -- no leaks are possible
+==8351== 
+==8351== Use --track-origins=yes to see where uninitialised values come from
+==8351== For lists of detected and suppressed errors, rerun with: -s
+==8351== ERROR SUMMARY: 128225 errors from 5 contexts (suppressed: 0 from 0)
